@@ -1,17 +1,16 @@
 import { Input, InputProps } from "antd";
-import { Typography } from "antd";
 
-const { Title } = Typography;
+import style from "styles/TextField.module.css";
 
 interface TextFieldProps extends InputProps {
   label?: string;
 }
 
-const TextField = ({ label }: TextFieldProps) => {
+const TextField = ({ label, ...props }: TextFieldProps) => {
   return (
     <>
-      {label && <Title level={5}>{label}</Title>}
-      <Input placeholder="Basic usage" />
+      {label && <div className={style.label}>{label}</div>}
+      <Input className={style.input} {...props} />
     </>
   );
 };
