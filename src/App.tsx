@@ -4,17 +4,31 @@ import BackgroundImage from "assets/background.jpg";
 import style from "styles/App.module.css";
 import TextField from "components/TextField";
 import { IHealth } from "types/health.model";
+import {
+  getBloodPressureMembership,
+  getBmiMembership,
+  getHeartBeatMembership,
+} from "helpers/membership";
+import { getBmiValue } from "helpers/bmi";
+import { getRuleFunctionByFuzzifier } from "helpers/fuzzifier";
 
 const App = () => {
   const [form] = Form.useForm<IHealth>();
 
   const onFinish = (values: IHealth) => {
-    console.log(values);
+    const bmiObj = getBmiMembership(getBmiValue(values.height, values.weight));
+    const heartbeatObj = getHeartBeatMembership(values.heartbeat);
+    const bloodPressureObj = getBloodPressureMembership(values.systolic);
+    console.log(
+      "fuzzifier",
+      getRuleFunctionByFuzzifier(bmiObj, heartbeatObj, bloodPressureObj)
+    );
   };
 
   const onReset = () => {
     form.resetFields();
   };
+
   return (
     <div
       className={style.container}
