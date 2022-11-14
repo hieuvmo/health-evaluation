@@ -6,7 +6,7 @@ export const getBmiMembership = (value: number) => {
     underweight: 0,
     medium: 0,
     overweight: 0,
-    fat: 0,
+    fat: 0
   };
 
   if (value <= 18.5) {
@@ -41,7 +41,7 @@ export const getHeartBeatMembership = (value: number) => {
   const res: IHeartBeat = {
     low: 0,
     medium: 0,
-    high: 0,
+    high: 0
   };
 
   if (value <= 55) {
@@ -68,7 +68,7 @@ export const getBloodPressureMembership = (value: number) => {
   const res: IBloodPressure = {
     low: 0,
     medium: 0,
-    high: 0,
+    high: 0
   };
 
   if (value <= 95) {
@@ -97,7 +97,7 @@ export const getOutputMembership = (xValue: number) => {
     unhealthy: 0,
     lessHealthy: 0,
     somewhatHealthy: 0,
-    healthy: 0,
+    healthy: 0
   };
 
   if (0 <= xValue && xValue <= 0.4) {

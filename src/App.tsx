@@ -7,7 +7,7 @@ import { IHealth } from "types/health.model";
 import {
   getBloodPressureMembership,
   getBmiMembership,
-  getHeartBeatMembership,
+  getHeartBeatMembership
 } from "helpers/membership";
 import { getBmiValue } from "helpers/bmi";
 import { getRuleFunctionByFuzzifier } from "helpers/fuzzifier";
@@ -40,7 +40,7 @@ const App = () => {
             style={{
               textAlign: "center",
               fontSize: "24px",
-              marginBottom: "24px",
+              marginBottom: "24px"
             }}
           >
             Hệ thống đánh giá chỉ số sức khỏe
@@ -49,7 +49,7 @@ const App = () => {
           <Form.Item
             name="height"
             rules={[
-              { required: true, message: "Chiều cao là trường bắt buộc" },
+              { required: true, message: "Chiều cao là trường bắt buộc" }
             ]}
           >
             <TextField
@@ -86,7 +86,7 @@ const App = () => {
             <Form.Item
               name="systolic"
               rules={[
-                { required: true, message: "Huyết áp là trường bắt buộc" },
+                { required: true, message: "Huyết áp là trường bắt buộc" }
               ]}
             >
               <TextField
@@ -100,7 +100,7 @@ const App = () => {
               style={{
                 marginBlock: "auto",
                 marginInline: "4px",
-                fontSize: "20px",
+                fontSize: "20px"
               }}
             >
               /
@@ -108,7 +108,7 @@ const App = () => {
             <Form.Item
               name="diastolic"
               rules={[
-                { required: true, message: "Huyết áp là trường bắt buộc" },
+                { required: true, message: "Huyết áp là trường bắt buộc" }
               ]}
             >
               <TextField placeholder="Tâm trương" suffix="mmHg" allowClear />

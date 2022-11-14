@@ -1,6 +1,7 @@
 import { OUTPUT } from "constants/label";
 import { IBloodPressure, IBmi, IHeartBeat } from "types/health.model";
 import { getEvaluationResult } from "./rules";
+import { getBloodPressureMembership } from "helpers/membership";
 
 // xứ lý bước 4
 export const getRuleFunctionByFuzzifier = (
@@ -16,7 +17,7 @@ export const getRuleFunctionByFuzzifier = (
         if (value1 !== 0 && value2 !== 0 && value3 !== 0) {
           evaluationLabelAndValue.push({
             label: getEvaluationResult(key1, key2, key3),
-            value: Math.min(value1, value2, value3),
+            value: Math.min(value1, value2, value3)
           });
         }
       }
