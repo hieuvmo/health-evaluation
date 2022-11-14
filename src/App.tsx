@@ -1,4 +1,6 @@
-import { Button, Form } from "antd";
+import { Button, Form, Modal } from "antd";
+import { useState } from "react";
+import { useForm } from "antd/lib/form/Form";
 
 import BackgroundImage from "assets/background.jpg";
 import style from "styles/App.module.css";
@@ -7,22 +9,41 @@ import { IHealth } from "types/health.model";
 import {
   getBloodPressureMembership,
   getBmiMembership,
-  getHeartBeatMembership
+  getHeartBeatMembership,
+  getOutputMembership
 } from "helpers/membership";
 import { getBmiValue } from "helpers/bmi";
 import { getRuleFunctionByFuzzifier } from "helpers/fuzzifier";
+import { getDefuzzifierResult } from "helpers/defuzzifier";
 
 const App = () => {
-  const [form] = Form.useForm<IHealth>();
+  const [form] = useForm<IHealth>();
+  const [openModal, setOpenModal] = useState<boolean>(false);
+  const [finalResult, setFinalResult] = useState<string>("");
 
-  const onFinish = (values: IHealth) => {
-    const bmiObj = getBmiMembership(getBmiValue(values.height, values.weight));
-    const heartbeatObj = getHeartBeatMembership(values.heartbeat);
-    const bloodPressureObj = getBloodPressureMembership(values.systolic);
-    console.log(
-      "fuzzifier",
-      getRuleFunctionByFuzzifier(bmiObj, heartbeatObj, bloodPressureObj)
+  const handleClickConfirm = () => {
+    setOpenModal(false);
+  };
+
+  const handleSubmitForm = (values: IHealth) => {
+    //Bước 3
+    const bmiMembership = getBmiMembership(
+      getBmiValue(values.height, values.weight)
     );
+    const heartbeatMembership = getHeartBeatMembership(values.heartbeat);
+    const bloodPressureMembership = getBloodPressureMembership(values.systolic);
+    //Bước 4
+    const ruleFunction = getRuleFunctionByFuzzifier(
+      bmiMembership,
+      heartbeatMembership,
+      bloodPressureMembership
+    );
+    //Bước 5
+    const defuzzifierRes = getDefuzzifierResult(ruleFunction);
+    //Bước 6
+    const result = getOutputMembership(defuzzifierRes);
+    setFinalResult(result);
+    setOpenModal(true);
   };
 
   const onReset = () => {
@@ -35,7 +56,7 @@ const App = () => {
       style={{ backgroundImage: `url(${BackgroundImage})` }}
     >
       <div className={style["container-form"]}>
-        <Form onFinish={onFinish} form={form}>
+        <Form onFinish={handleSubmitForm} form={form}>
           <h2
             style={{
               textAlign: "center",
@@ -123,7 +144,7 @@ const App = () => {
               htmlType="submit"
               style={{ marginRight: "16px" }}
             >
-              Submit
+              Thực hiện
             </Button>
             <Button htmlType="button" onClick={onReset}>
               Reset
@@ -131,6 +152,22 @@ const App = () => {
           </Form.Item>
         </Form>
       </div>
+      <Modal
+        title="Kết quả"
+        open={openModal}
+        onOk={handleClickConfirm}
+        footer={[
+          <Button key="submit" type="primary" onClick={handleClickConfirm}>
+            Xác nhận
+          </Button>
+        ]}
+      >
+        <div
+          style={{ fontSize: "18px", fontWeight: 500, paddingBlock: "16px" }}
+        >
+          {finalResult}
+        </div>
+      </Modal>
     </div>
   );
 };

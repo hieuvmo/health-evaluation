@@ -93,35 +93,35 @@ export const getBloodPressureMembership = (value: number) => {
 };
 
 export const getOutputMembership = (xValue: number) => {
-  const output: IOutput = {
-    unhealthy: 0,
-    lessHealthy: 0,
-    somewhatHealthy: 0,
-    healthy: 0
+  const output = {
+    "không khỏe": 0,
+    "kém khỏe": 0,
+    "hơi khỏe": 0,
+    khỏe: 0
   };
 
   if (0 <= xValue && xValue <= 0.4) {
     if (0 <= xValue && xValue <= 0.2)
-      output["unhealthy"] = getLineUpValue(0, 0.2, xValue);
-    else output["unhealthy"] = getLineDownValue(0.2, 0.4, xValue);
+      output["không khỏe"] = getLineUpValue(0, 0.2, xValue);
+    else output["không khỏe"] = getLineDownValue(0.2, 0.4, xValue);
   }
 
   if (0.2 <= xValue && xValue <= 0.6) {
     if (0.2 <= xValue && xValue <= 0.4)
-      output["lessHealthy"] = getLineUpValue(0.2, 0.4, xValue);
-    else output["lessHealthy"] = getLineDownValue(0.4, 0.6, xValue);
+      output["kém khỏe"] = getLineUpValue(0.2, 0.4, xValue);
+    else output["kém khỏe"] = getLineDownValue(0.4, 0.6, xValue);
   }
 
   if (0.4 <= xValue && xValue <= 0.8) {
     if (0.4 <= xValue && xValue <= 0.6)
-      output["somewhatHealthy"] = getLineUpValue(0.4, 0.6, xValue);
-    else output["somewhatHealthy"] = getLineDownValue(0.6, 0.8, xValue);
+      output["hơi khỏe"] = getLineUpValue(0.4, 0.6, xValue);
+    else output["hơi khỏe"] = getLineDownValue(0.6, 0.8, xValue);
   }
 
   if (0.6 <= xValue && xValue <= 1) {
     if (0.6 <= xValue && xValue <= 0.8)
-      output["healthy"] = getLineUpValue(0.6, 0.8, xValue);
-    else output["healthy"] = getLineDownValue(0.8, 1, xValue);
+      output["khỏe"] = getLineUpValue(0.6, 0.8, xValue);
+    else output["khỏe"] = getLineDownValue(0.8, 1, xValue);
   }
 
   const res = [];
